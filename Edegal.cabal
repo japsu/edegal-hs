@@ -1,0 +1,11 @@
+Name:           Edegal
+Version:        0.0
+Cabal-Version:  >= 1.2
+License:        MIT
+Author:         Santtu Pajukanta
+Synopsis:       Some Haskell experiments around the Edegal image gallery
+Build-Type:     Simple
+
+Executable edegal
+  Build-Depends:  base, containers >= 0.5, aeson >= 0.7
+  Main-Is:        Web/Edegal/Server/Main.hs
