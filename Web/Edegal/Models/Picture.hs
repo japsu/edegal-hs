@@ -2,9 +2,9 @@
 
 module Web.Edegal.Models.Picture (Picture (..)) where
 
-import GHC.Generics
+import GHC.Generics (Generic)
 
-import Data.Aeson
+import Data.Aeson (ToJSON)
 
 import Web.Edegal.Models.Path (Path)
 
