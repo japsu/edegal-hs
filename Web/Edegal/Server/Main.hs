@@ -20,7 +20,7 @@ main = do
   putAlbum backend Album.emptyRoot
 
   scotty 3000 $ do
-    get (regex "^/v2(/[a-zA-Z0-9/-]*)$") $ do
+    get (regex "^/api/v3(/[a-zA-Z0-9/-]*)$") $ do
       path <- param "1"
       maybeAlbum <- liftIO $ getAlbum backend $ unpack path
       json maybeAlbum
