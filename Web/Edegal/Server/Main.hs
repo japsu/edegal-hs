@@ -1,14 +1,10 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Main where
 
-import Control.Monad.Trans (liftIO)
-
-import Data.Text (unpack)
-import Web.Scotty (scotty, get, regex, param, json)
+import Web.Scotty (scotty)
 
 import qualified Web.Edegal.Models.Album as Album
-import Web.Edegal.Server.MetadataBackends.Base (getAlbum, putAlbum)
+import Web.Edegal.Server.Api (api)
+import Web.Edegal.Server.MetadataBackends.Base (putAlbum)
 import Web.Edegal.Server.MetadataBackends.TransactionalMemory (mkTransactionalMemoryMetadataBackend)
 
 
@@ -26,8 +22,4 @@ main = do
   -- XXX
   setupTestData backend
 
-  scotty 3000 $ do
-    get (regex "^/api/v3(/[a-zA-Z0-9/-]*)$") $ do
-      path <- param "1"
-      maybeAlbum <- liftIO $ getAlbum backend $ unpack path
-      json maybeAlbum
+  scotty 3000 $ api backend
