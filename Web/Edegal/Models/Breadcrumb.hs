@@ -1,16 +1,18 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module Web.Edegal.Models.Breadcrumb where
+module Web.Edegal.Models.Breadcrumb (Breadcrumb (..)) where
 
 import GHC.Generics
 
 import Data.Aeson
 
-import qualified Web.Edegal.Models.Path as P
+import Web.Edegal.Models.Path (Path)
+
 
 data Breadcrumb = Breadcrumb
-  { path :: P.Path
+  { path :: Path
   , title :: String
   } deriving (Show, Generic)
+
 
 instance ToJSON Breadcrumb

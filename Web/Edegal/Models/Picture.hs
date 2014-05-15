@@ -1,16 +1,16 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module Web.Edegal.Models.Picture where
+module Web.Edegal.Models.Picture (Picture (..)) where
 
 import GHC.Generics
 
 import Data.Aeson
 
-import qualified Web.Edegal.Models.Path as P
+import Web.Edegal.Models.Path (Path)
 
 
 data Picture = Picture
-  { path :: P.Path
+  { path :: Path
   , title :: String
   --, media :: [Media]
   --, thumbnail :: Maybe Media

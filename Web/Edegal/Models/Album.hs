@@ -1,24 +1,25 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module Web.Edegal.Models.Album where
+module Web.Edegal.Models.Album (Album (..), addChild, newChild, emptyRoot) where
 
 import GHC.Generics
 
 import Data.Aeson
 
-import qualified Web.Edegal.Models.Breadcrumb as BC
-import qualified Web.Edegal.Models.Path as Pa
-import qualified Web.Edegal.Models.Picture as Pi
-import qualified Web.Edegal.Models.Subalbum as SA
+import Web.Edegal.Models.Breadcrumb (Breadcrumb (Breadcrumb))
+import Web.Edegal.Models.Path (Path, Slug)
+import qualified Web.Edegal.Models.Path as Path
+import Web.Edegal.Models.Picture (Picture)
+import Web.Edegal.Models.Subalbum (Subalbum (Subalbum))
 
 
 data Album = Album
-  { path :: Pa.Path
+  { path :: Path
   , title :: String
   , description :: String
-  , breadcrumbs :: [BC.Breadcrumb]
-  , subalbums :: [SA.Subalbum]
-  , pictures :: [Pi.Picture]
+  , breadcrumbs :: [Breadcrumb]
+  , subalbums :: [Subalbum]
+  , pictures :: [Picture]
   --, thumbnail :: Maybe Media
   } deriving (Show, Generic)
 
@@ -26,12 +27,12 @@ data Album = Album
 instance ToJSON Album
 
 
-mkBreadcrumb :: Album -> BC.Breadcrumb
-mkBreadcrumb album = BC.Breadcrumb (path album) (title album)
+mkBreadcrumb :: Album -> Breadcrumb
+mkBreadcrumb album = Breadcrumb (path album) (title album)
 
 
-mkSubalbum :: Album -> SA.Subalbum
-mkSubalbum album = SA.Subalbum (path album) (title album)
+mkSubalbum :: Album -> Subalbum
+mkSubalbum album = Subalbum (path album) (title album)
 
 
 addChild :: Album -> Album -> (Album, Album)
@@ -40,10 +41,10 @@ addChild parent child = (parent', child') where
   child'  = child  { breadcrumbs = mkBreadcrumb parent : breadcrumbs parent }
 
 
-newChild :: Album -> Pa.Slug -> (Album, Album)
+newChild :: Album -> Slug -> (Album, Album)
 newChild parent childSlug = addChild parent child where
   child = Album
-    { path = Pa.append (path parent) childSlug
+    { path = Path.append (path parent) childSlug
     , title = ""
     , description = ""
     , subalbums = []

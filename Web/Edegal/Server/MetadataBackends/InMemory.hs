@@ -1,20 +1,22 @@
-module Web.Edegal.Server.MetadataBackends.InMemory where
+module Web.Edegal.Server.MetadataBackends.InMemory (InMemoryMetadataBackend, mkInMemoryMetadataBackend) where
 
+import Data.Map (Map)
 import qualified Data.Map as Map
 import Data.IORef (IORef, newIORef, readIORef, modifyIORef)
 
-import Web.Edegal.Models.Album as A
-import Web.Edegal.Models.Path as Pa
+import Web.Edegal.Models.Album (Album)
+import qualified Web.Edegal.Models.Album as Album
+import Web.Edegal.Models.Path (Path)
 import Web.Edegal.Server.MetadataBackends.Base
 
 
 data InMemoryMetadataBackend = InMemoryMetadataBackend
-  { albums :: IORef (Map.Map Pa.Path A.Album) }
+  { albums :: IORef (Map Path Album) }
 
 
 instance MetadataBackend InMemoryMetadataBackend where
   putAlbum backend album = modifyIORef (albums backend) $ \currentAlbums ->
-    Map.insert (path album) album currentAlbums
+    Map.insert (Album.path album) album currentAlbums
 
   getAlbum backend path = do
     currentAlbums <- readIORef $ albums backend

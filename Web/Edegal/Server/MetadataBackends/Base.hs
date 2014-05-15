@@ -1,9 +1,9 @@
-module Web.Edegal.Server.MetadataBackends.Base where
+module Web.Edegal.Server.MetadataBackends.Base (MetadataBackend (..)) where
 
-import qualified Web.Edegal.Models.Album as A
-import qualified Web.Edegal.Models.Path as Pa
+import Web.Edegal.Models.Album (Album)
+import Web.Edegal.Models.Path (Path)
 
 
 class MetadataBackend a where
-  getAlbum :: a -> Pa.Path -> IO (Maybe A.Album)
-  putAlbum :: a -> A.Album -> IO ()
+  getAlbum :: a -> Path -> IO (Maybe Album)
+  putAlbum :: a -> Album -> IO ()
