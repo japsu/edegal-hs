@@ -6,3 +6,4 @@ import qualified Web.Edegal.Models.Path as Pa
 
 class MetadataBackend a where
   getAlbum :: a -> Pa.Path -> IO (Maybe A.Album)
+  putAlbum :: a -> A.Album -> IO ()
