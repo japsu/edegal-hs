@@ -7,5 +7,12 @@ Synopsis:       Some Haskell experiments around the Edegal image gallery
 Build-Type:     Simple
 
 Executable edegal
-  Build-Depends:  base, bytestring >= 0.10, containers >= 0.5, aeson >= 0.7, stm >= 2.4
-  Main-Is:        Web/Edegal/Server/Main.hs
+  Build-Depends: base
+               , aeson >= 0.7
+               , bytestring >= 0.10
+               , containers >= 0.5
+               , mtl >= 2.1
+               , scotty >= 0.7
+               , stm >= 2.4
+               , text >= 0.11
+  Main-Is:       Web/Edegal/Server/Main.hs
