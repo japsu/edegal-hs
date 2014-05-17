@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module Web.Edegal.Models.Picture (Picture (..), getOriginalMedia) where
+module Web.Edegal.Models.Picture (Picture (..), getOriginalMedia, mkTitle) where
 
 import Data.List (find)
 import GHC.Generics (Generic)
@@ -25,4 +25,8 @@ instance ToJSON Picture
 
 
 getOriginalMedia :: Picture -> Maybe Media
-getOriginalMedia = find Media.original . media
+getOriginalMedia = find (Media.original . Media.spec) . media
+
+
+mkTitle :: String -> String
+mkTitle originalFileName = undefined
