@@ -1,8 +1,8 @@
  module Web.Edegal.Server.MediaManager where
 
-import Control.Monad (filterM, mapM, liftM)
+import Control.Monad (mapM)
 import Data.Function (on)
-import Data.List (find, nub, sortBy, (\\))
+import Data.List (nub, sortBy, (\\))
 import Data.Ord (compare)
 
 import Web.Edegal.Models.Media (Media (Media), MediaSpec (MediaSpec))

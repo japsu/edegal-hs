@@ -6,6 +6,7 @@ import qualified Web.Edegal.Models.Album as Album
 import Web.Edegal.Server.Api (api)
 import Web.Edegal.Server.MetadataBackends.Base (putAlbum)
 import Web.Edegal.Server.MetadataBackends.TransactionalMemory (mkTransactionalMemoryMetadataBackend)
+import Web.Edegal.Server.MediaManager (importPicture)
 
 
 setupTestData backend = do
