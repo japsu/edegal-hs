@@ -10,4 +10,4 @@ import Web.Edegal.Models.Picture (Picture)
 class StorageBackend a where
   getMediaSrc :: a -> Path -> MediaSpec -> String
   mediaExists :: a -> Media -> IO Bool
-  putFile     :: a -> Path -> MediaSpec -> ByteString -> IO Media
+  putFile     :: a -> Path -> MediaSpec -> ByteString -> IO String

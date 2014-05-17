@@ -25,7 +25,7 @@ instance ToJSON Picture
 
 
 getOriginalMedia :: Picture -> Maybe Media
-getOriginalMedia = find (Media.original . Media.spec) . media
+getOriginalMedia = find Media.original . media
 
 
 mkTitle :: String -> String

@@ -17,7 +17,6 @@ data MediaSpec = MediaSpec
   { width :: Int
   , height :: Int
   , quality :: Int
-  , original :: Bool
   } deriving (Show, Generic, Eq, Ord)
 
 
@@ -25,6 +24,7 @@ data Media = Media
   { src :: String
   , spec :: MediaSpec
   , offset :: Maybe Offset
+  , original :: Bool
   } deriving (Show, Generic, Eq)
 
 

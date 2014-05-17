@@ -30,7 +30,14 @@ createMedia backend path originalImage spec = do
   scaledImage <- resizeImage (MediaSpec.width spec) (MediaSpec.height spec) originalImage
   scaledImageData <- saveJpegByteString (MediaSpec.quality spec) scaledImage
 
-  StorageBackend.putFile backend path spec scaledImageData
+  src <- StorageBackend.putFile backend path spec scaledImageData
+
+  return Media {
+    src = src,
+    spec = spec,
+    offset = Nothing,
+    original = False
+  }
 
 
 importPicture :: StorageBackend a => a -> [MediaSpec] -> Album -> String -> ByteString -> IO Picture
@@ -40,18 +47,25 @@ importPicture backend requiredSpecs album originalFileName imageData = do
   image <- loadJpegByteString imageData
   (originalWidth, originalHeight) <- imageSize image
 
-  let originalSpec = MediaSpec {
-    width = originalWidth,
-    height = originalHeight,
-    quality = 100,
-    original = True
-  }
+  let originalSpec = MediaSpec
+        { width = originalWidth
+        , height = originalHeight
+        , quality = 100
+        }
 
-  original <- StorageBackend.putFile backend path originalSpec imageData
+  src <- StorageBackend.putFile backend path originalSpec imageData
+
+  let original = Media
+        { src = src
+        , spec = originalSpec
+        , offset = Nothing
+        , original = True
+        }
+
   newMedia <- mapM (createMedia backend path image) requiredSpecs
 
-  return Picture {
-    path = path,
-    title = Picture.mkTitle originalFileName,
-    media = original : newMedia
-  }
+  return Picture
+    { path = path
+    , title = Picture.mkTitle originalFileName
+    , media = original : newMedia
+    }
