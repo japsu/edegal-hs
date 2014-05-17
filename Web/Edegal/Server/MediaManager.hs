@@ -41,17 +41,17 @@ importPicture backend requiredSpecs album originalFileName imageData = do
   (originalWidth, originalHeight) <- imageSize image
 
   let originalSpec = MediaSpec {
-    width = originalWidth
-    , height = originalHeight
-    , quality = 100
-    , original = True
-    }
+    width = originalWidth,
+    height = originalHeight,
+    quality = 100,
+    original = True
+  }
 
   original <- StorageBackend.putFile backend path originalSpec imageData
   newMedia <- mapM (createMedia backend path image) requiredSpecs
 
-  return Picture
-    { path = path
-    , title = Picture.mkTitle originalFileName
-    , media = original : newMedia
-    }
+  return Picture {
+    path = path,
+    title = Picture.mkTitle originalFileName,
+    media = original : newMedia
+  }
