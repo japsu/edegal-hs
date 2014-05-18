@@ -10,6 +10,7 @@ import Data.Aeson (ToJSON)
 import Web.Edegal.Models.Path (Path)
 import Web.Edegal.Models.Media (Media)
 import qualified Web.Edegal.Models.Media as Media
+import qualified Web.Edegal.Models.Media as MediaSpec
 
 
 data Picture = Picture
@@ -25,7 +26,7 @@ instance ToJSON Picture
 
 
 getOriginalMedia :: Picture -> Maybe Media
-getOriginalMedia = find Media.original . media
+getOriginalMedia = find (MediaSpec.original . Media.spec) . media
 
 
 mkTitle :: String -> String

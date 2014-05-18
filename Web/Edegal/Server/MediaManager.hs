@@ -35,8 +35,7 @@ createMedia backend path originalImage spec = do
   return Media {
     src = src,
     spec = spec,
-    offset = Nothing,
-    original = False
+    offset = Nothing
   }
 
 
@@ -51,6 +50,7 @@ importPicture backend requiredSpecs album originalFileName imageData = do
         { width = originalWidth
         , height = originalHeight
         , quality = 100
+        , original = True
         }
 
   src <- StorageBackend.putFile backend path originalSpec imageData
@@ -59,7 +59,6 @@ importPicture backend requiredSpecs album originalFileName imageData = do
         { src = src
         , spec = originalSpec
         , offset = Nothing
-        , original = True
         }
 
   newMedia <- mapM (createMedia backend path image) requiredSpecs
