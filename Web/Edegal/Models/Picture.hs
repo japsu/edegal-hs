@@ -2,6 +2,7 @@
 
 module Web.Edegal.Models.Picture (Picture (..), getOriginalMedia, mkTitle) where
 
+import Data.Text (Text)
 import Data.List (find)
 import GHC.Generics (Generic)
 
@@ -15,7 +16,7 @@ import qualified Web.Edegal.Models.Media as MediaSpec
 
 data Picture = Picture
   { path :: Path
-  , title :: String
+  , title :: Text
   , media :: [Media]
   --, thumbnail :: Maybe Media
   --, tags :: [Tag]
@@ -29,5 +30,5 @@ getOriginalMedia :: Picture -> Maybe Media
 getOriginalMedia = find (MediaSpec.original . Media.spec) . media
 
 
-mkTitle :: String -> String
+mkTitle :: String -> Text
 mkTitle originalFileName = undefined

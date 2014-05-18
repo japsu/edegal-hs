@@ -1,7 +1,8 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric, OverloadedStrings #-}
 
 module Web.Edegal.Models.Album (Album (..), addChild, newChild, emptyRoot) where
 
+import Data.Text (Text)
 import GHC.Generics (Generic)
 
 import Data.Aeson (ToJSON)
@@ -15,8 +16,8 @@ import Web.Edegal.Models.Subalbum (Subalbum (Subalbum))
 
 data Album = Album
   { path :: Path
-  , title :: String
-  , description :: String
+  , title :: Text
+  , description :: Text
   , breadcrumbs :: [Breadcrumb]
   , subalbums :: [Subalbum]
   , pictures :: [Picture]
